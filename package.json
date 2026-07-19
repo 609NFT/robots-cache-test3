@@ -1,0 +1,7 @@
+{
+  "name": "robots-cache-test3",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node server.js"
+  }
+}
