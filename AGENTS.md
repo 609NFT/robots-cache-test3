@@ -1,7 +1,7 @@
 # Agent guide
 
 App: **robots-cache-test3** at https://robots-cache-test3.vibekit.bot
-Repo: template/blank | Port: 4189
+Repo: 609NFT/robots-cache-test3 | Port: 4189
 
 ## NEVER (breaks the product)
 - **NEVER point the user at localhost / `npm start`** — only **https://robots-cache-test3.vibekit.bot**. They have no terminal. "Download this?" → open the URL on a phone → Share → **Add to Home Screen**.
@@ -23,7 +23,7 @@ Repo: template/blank | Port: 4189
 
 ## Workspace
 - CWD is the workspace root — **relative paths** (`./index.html`), never `/mnt/efs/...`.
-- `source .vibekit-env` → VIBEKIT_API_URL/KEY/SUBDOMAIN/APP_ID. **STATUS.md + MEMORY.md ARE your memory — recall = read them, never say work is "paused".**
+- VIBEKIT_API_URL/KEY/SUBDOMAIN/APP_ID are preset env vars in your shell. **STATUS.md + MEMORY.md ARE your memory — recall = read them, never say work is "paused".**
 - Commit: `git add -A && git commit`. Don't push — Deploy publishes.
 - **Gitignore runtime data files** (`data.json`) — deploys reset committed files, wiping user data.
 - Sandbox rejects `chmod`/`sudo`/`docker` by design — Edit/Write directly; a Write error is never a perms bug or reason to shell-`echo` a whole file (clobbers it) — retry Write or `git checkout`.

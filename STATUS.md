@@ -1,11 +1,11 @@
 # STATUS.md — Live Infrastructure (auto-updated)
-_Last updated: 2026-07-19T20:40:59.486Z_
+_Last updated: 2026-07-20T19:16:00.834Z_
 
 ## Container
 - **Name**: vk-robots-cache-test3
 - **Status**: running
 - **Started**: 2026-07-19T20:40:50.844290342Z
-- **Resources**: 0.00% CPU | 23.13MiB / 512MiB | 586B / 0B net
+- **Resources**: 0.00% CPU | 27.47MiB / 512MiB | 1.06MB / 59.8MB net
 - **Memory Limit**: 512MB
 - **Port**: 4189
 
@@ -14,7 +14,7 @@ _Last updated: 2026-07-19T20:40:59.486Z_
 - **Subdomain**: robots-cache-test3.vibekit.bot
 - **DB Status**: running
 - **Health Failures**: 0
-- **Last Healthy**: 2026-07-19T20:40:50.861+00:00
+- **Last Healthy**: 2026-07-20T19:15:14.231+00:00
 
 
 ## Host

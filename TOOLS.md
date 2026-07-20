@@ -4,7 +4,7 @@
 - Shell: node, npm, git, curl (sandboxed — no docker/aws/ssh)
 - File read/write on your workspace (which IS the live app code)
 - web_fetch, web_search, browser, sub-agents, image analysis
-- VibeKit API via `source .vibekit-env` (see AGENTS.md for endpoints)
+- VibeKit API via the preset `VIBEKIT_*` env vars (see AGENTS.md for endpoints)
 
 ## Deploy — ONLY when the user's own message asks for it
 Never deploy on your own initiative — "tap **Deploy**" stays the default close.
@@ -12,7 +12,6 @@ When the user's message explicitly says deploy/publish/ship/make-it-live:
 commit your changes first, then:
 
 ```bash
-source .vibekit-env
 curl -s -X POST "$VIBEKIT_API_URL/api/v1/hosting/app/$VIBEKIT_APP_ID/deploy-workspace?async=1" \
   -H "Authorization: Bearer $VIBEKIT_API_KEY"
 # → { "jobId": "…" } — poll every ~5s until status is done|error:
@@ -23,6 +22,24 @@ curl -s "$VIBEKIT_API_URL/api/v1/hosting/app/$VIBEKIT_APP_ID/deploy-workspace/jo
 stop (one deploy attempt per ask — never retry-loop a broken build).
 
 App logs: `GET $VIBEKIT_API_URL/api/v1/hosting/app/$VIBEKIT_SUBDOMAIN/logs`
+
+## Image generation — real assets (logos, heroes, icons, illustrations)
+Synchronous: the image is written into your workspace before the call returns
+(never say "rendering, I'll send it"). Billed to the user's credits (~4¢/image),
+so generate with intent — one good asset, not a gallery of variants.
+
+```bash
+curl -s -X POST "$VIBEKIT_API_URL/api/v1/hosting/app/$VIBEKIT_APP_ID/agent/generate-image" \
+  -H "Authorization: Bearer $VIBEKIT_API_KEY" -H 'Content-Type: application/json' \
+  -d '{"prompt":"minimal flat logo, coffee cup, warm orange on cream","path":"public/images/logo.png"}'
+# → { "ok": true, "path": "public/images/logo.png", ... } — reference that path in the app
+```
+
+`path` = where YOUR app serves static files from (public/, static/, assets/…).
+Optional: `"aspect_ratio":"16:9"` (hero) · `"model":"openai/gpt-image-1"` (only
+when the image must contain readable TEXT — wordmarks/banners; default model is
+faster + cheaper and best for everything else). 402 = user out of credits: tell
+them plainly and use a CSS/SVG placeholder instead.
 
 ## Boot test (only after dep/server changes — see AGENTS.md §Ship working code)
 ONE quiet boot on a random high port, never 3000/3010 or 4000–4999:
@@ -40,7 +57,6 @@ Merge** settings — if disabled the create call returns 403, so just work
 serially on main. Workflow:
 
 ```bash
-source .vibekit-env
 # 1) Before spawning a sub-agent for a task, make its worktree:
 curl -s -X POST $VIBEKIT_API_URL/api/v1/hosting/app/$VIBEKIT_APP_ID/worktree/create \
   -H "Authorization: Bearer $VIBEKIT_API_KEY" -H 'Content-Type: application/json' \
