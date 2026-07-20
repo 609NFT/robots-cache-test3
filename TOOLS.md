@@ -24,9 +24,14 @@ stop (one deploy attempt per ask — never retry-loop a broken build).
 App logs: `GET $VIBEKIT_API_URL/api/v1/hosting/app/$VIBEKIT_SUBDOMAIN/logs`
 
 ## Image generation — real assets (logos, heroes, icons, illustrations)
-Synchronous: the image is written into your workspace before the call returns
-(never say "rendering, I'll send it"). Billed to the user's credits (~4¢/image),
-so generate with intent — one good asset, not a gallery of variants.
+Synchronous and fast (~5–15s): the image is written into your workspace before
+the call returns. **Run the curl in the FOREGROUND and wait for the JSON** — if
+the shell backgrounds it anyway, poll that process to completion BEFORE ending
+your turn. Nothing runs after your turn ends: a backgrounded call you don't
+wait for dies orphaned, no image ever lands, and "generating — I'll confirm
+when it finishes" is a broken promise. Confirm only from the actual `{"ok":true}`
+response. Billed to the user's credits (~4¢/image), so generate with intent —
+one good asset, not a gallery of variants.
 
 ```bash
 curl -s -X POST "$VIBEKIT_API_URL/api/v1/hosting/app/$VIBEKIT_APP_ID/agent/generate-image" \

@@ -24,7 +24,7 @@ body{
 /* topbar */
 #topbar{display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(10,10,16,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);z-index:20}
 .brand{display:flex;align-items:center;gap:8px;font-weight:800;font-size:15px;letter-spacing:.04em}
-.brand-mark{width:26px;height:26px;flex:none}
+.brand-mark{width:26px;height:26px;flex:none;object-fit:contain;border-radius:6px}
 .brand-text{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
 .pill{display:flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--border);border-radius:999px;padding:5px 12px;font-size:13px;font-weight:600;white-space:nowrap}
 .pill .ico{font-size:14px}
@@ -131,20 +131,7 @@ body{
 <div id="app">
   <div id="topbar">
     <span class="brand">
-      <svg class="brand-mark" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="brandGrad" x1="0" y1="0" x2="48" y2="48">
-            <stop offset="0" stop-color="#7c5cff"/>
-            <stop offset="1" stop-color="#00e5c7"/>
-          </linearGradient>
-        </defs>
-        <path d="M24 3 L42 12 V27 C42 36 33 42 24 45 C15 42 6 36 6 27 V12 Z" fill="url(#brandGrad)" opacity="0.16" stroke="url(#brandGrad)" stroke-width="2"/>
-        <path d="M24 10 L34 15.5 V25 C34 31 29.5 35 24 37 C18.5 35 14 31 14 25 V15.5 Z" fill="url(#brandGrad)" opacity="0.3"/>
-        <rect x="16" y="19" width="16" height="9" rx="2" fill="#07070c" stroke="url(#brandGrad)" stroke-width="1.6"/>
-        <rect x="19" y="22" width="4" height="3" rx="0.6" fill="url(#brandGrad)"/>
-        <rect x="25" y="22" width="4" height="3" rx="0.6" fill="url(#brandGrad)"/>
-        <path d="M10 15 L6 18 M38 15 L42 18" stroke="url(#brandGrad)" stroke-width="1.6" stroke-linecap="round"/>
-      </svg>
+      <img class="brand-mark" src="/images/iron-legion-logo.png" alt="Iron Legion"/>
       <span class="brand-text">IRON LEGION</span>
     </span>
     <div class="spacer"></div>
