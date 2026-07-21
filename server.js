@@ -18,7 +18,8 @@ http.createServer((req, res) => {
   try {
     let urlPath = decodeURIComponent((req.url || '/').split('?')[0]);
     if (urlPath === '/') urlPath = '/index.html';
-    let filePath = path.join(__dirname, urlPath);
+    const servedPath = urlPath.startsWith('/images/') ? path.join('/public', urlPath) : urlPath;
+    let filePath = path.join(__dirname, servedPath);
     // prevent path escape
     if (!filePath.startsWith(__dirname)) filePath = path.join(__dirname, 'index.html');
     if (!fs.existsSync(filePath) || fs.statSync(filePath).isDirectory()) {
