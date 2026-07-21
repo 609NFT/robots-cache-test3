@@ -23,8 +23,17 @@ body{
 
 /* topbar */
 #topbar{display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(10,10,16,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);z-index:20}
-.brand{display:flex;align-items:center;gap:8px;font-weight:800;font-size:15px;letter-spacing:.04em}
-.brand-mark{width:26px;height:26px;flex:none;object-fit:contain;border-radius:6px}
+.brand{display:flex;align-items:center;gap:8px;font-weight:800;font-size:15px;letter-spacing:.04em;min-width:0}
+.brand-mark{
+  width:30px;
+  height:30px;
+  flex:none;
+  display:block;
+  object-fit:cover;
+  object-position:center;
+  border-radius:8px;
+  background:#10111b;
+}
 .brand-text{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
 .pill{display:flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--border);border-radius:999px;padding:5px 12px;font-size:13px;font-weight:600;white-space:nowrap}
 .pill .ico{font-size:14px}
@@ -131,7 +140,7 @@ body{
 <div id="app">
   <div id="topbar">
     <span class="brand">
-      <img class="brand-mark" src="/images/iron-legion-mark.svg" alt="Iron Legion"/>
+      <img class="brand-mark" src="/images/app-logo.png" width="30" height="30" alt="Iron Legion" decoding="async"/>
       <span class="brand-text">IRON LEGION</span>
     </span>
     <div class="spacer"></div>
