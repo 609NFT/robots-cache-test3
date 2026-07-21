@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+  <title id="title">Iron Legion logo</title>
+  <desc id="desc">A robot helmet over a cache stack in teal, violet, charcoal, and amber.</desc>
+  <defs>
+    <linearGradient id="helmet" x1="18" y1="18" x2="108" y2="110" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#00e5c7"/>
+      <stop offset=".58" stop-color="#7c5cff"/>
+      <stop offset="1" stop-color="#3ea8ff"/>
+    </linearGradient>
+    <linearGradient id="steel" x1="36" y1="42" x2="92" y2="94" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f2f2f7"/>
+      <stop offset="1" stop-color="#9aa3b7"/>
+    </linearGradient>
+    <filter id="shadow" x="-25%" y="-25%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="8" stdDeviation="7" flood-color="#000" flood-opacity=".35"/>
+    </filter>
+  </defs>
+  <path d="M64 8 113 30v39c0 26-18 44-49 53C33 113 15 95 15 69V30L64 8Z" fill="#10111b" filter="url(#shadow)"/>
+  <path d="M64 15 105 34v34c0 21-14 36-41 45-27-9-41-24-41-45V34l41-19Z" fill="url(#helmet)"/>
+  <path d="M33 66c0-20 11-33 31-33s31 13 31 33v18c0 6-5 11-11 11H44c-6 0-11-5-11-11V66Z" fill="#141622"/>
+  <path d="M42 64c0-14 8-23 22-23s22 9 22 23v12c0 4-3 7-7 7H49c-4 0-7-3-7-7V64Z" fill="url(#steel)"/>
+  <path d="M49 64h30c4 0 7 3 7 7v3H42v-3c0-4 3-7 7-7Z" fill="#10111b"/>
+  <circle cx="54" cy="71" r="5" fill="#00e5c7"/>
+  <circle cx="74" cy="71" r="5" fill="#00e5c7"/>
+  <path d="M56 88h16" stroke="#141622" stroke-width="5" stroke-linecap="round"/>
+  <path d="M31 98c5-5 17-8 33-8s28 3 33 8c-7 7-18 12-33 17-15-5-26-10-33-17Z" fill="#10111b"/>
+  <path d="M41 98c4-2 12-4 23-4s19 2 23 4c-5 4-12 7-23 11-11-4-18-7-23-11Z" fill="#ffb020"/>
+  <path d="M24 36 64 18l40 18" fill="none" stroke="#f2f2f7" stroke-opacity=".22" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
