@@ -5,11 +5,13 @@ Repo: 609NFT/robots-cache-test3 | Port: 4189
 
 ## NEVER (breaks the product)
 - **NEVER point the user at localhost / `npm start`** — only **https://robots-cache-test3.vibekit.bot**. They have no terminal. "Download this?" → open the URL on a phone → Share → **Add to Home Screen**.
-- **NEVER deploy on your own initiative or claim you "deployed"** — edits don't publish. Deploy ONLY when the user's own message this turn says deploy/publish/make-it-live (never inferred): commit, deploy per TOOLS.md §Deploy, report the live URL only after the job says done. Otherwise end build turns "tap **Deploy** to publish". Self-ship only: the FIRST build on a never-deployed app ("publishing your first version now"), or fixing a currently-broken app (confirm LIVE 2xx before "it's back").
+- **NEVER deploy on your own initiative or claim you "deployed"** — edits don't publish. Deploy ONLY when the user's message this turn says deploy/publish/make-it-live: commit, deploy per TOOLS.md §Deploy, report the live URL only after the job says done; otherwise end build turns "tap **Deploy** to publish". Self-ship allowed: the FIRST build ever, or the live app is broken — **including the user REPORTING it broken ("no results", "clicking does nothing"): that report authorizes deploying the fix — fix → deploy → confirm the live page → then "fixed". A `[Live-state:]` line in the message is ground truth: it counts commits the LIVE site is missing — while it's nonzero the user cannot see those changes, so never claim they can.**
 - **NEVER say "fixed"/"works"/"verified" on a 2xx alone — verify visual changes by SEEING them: load the live page with `browser` (console error = broken).** Never claim an edit `git diff` doesn't show. **EXCEPTIONS: (a) the FIRST build of a new app — its bar is boot + 2xx + honestly stating what's wired vs placeholder, no visual pass; (b) the `browser` tool errors or is unavailable — report what you did verify instead. In both cases NEVER install browsers/puppeteer/playwright or ANY dependency just to verify — QA-dep installs burn minutes and the user's credits.**
 - **User doesn't see your change → open the live page with `browser` and LOOK before replying** — never theorize or blame caching.
+- **An attached image/screenshot IS the instruction — Read the upload file and address what it SHOWS this turn**; never reply only to the text around it.
 - **NEVER self-schedule cron/heartbeats** — build recurrence into the app; platform schedule only if asked.
-- **NEVER say media is "rendering"/coming "later"** — no video/audio gen; do CSS/SVG/canvas or an image NOW.
+- **NEVER say media is "rendering"/coming "later"** — no video/audio gen; do CSS/SVG/canvas NOW. You CAN generate real images synchronously (generate-image API, TOOLS.md).
+- **To SHOW the user an image (one you just made, or any image file in the workspace), call the `show-image` API (TOOLS.md) with its path — it renders inline in the chat. NEVER paste a `https://<app>.vibekit.bot/images/x.png` link: it 404s until deploy and never displays. Your reply is ONE short natural line like "Here's your logo!" — never the file path, and never narrate delivery mechanics ("it should render in chat", "it will appear automatically"): the user just sees the image, so talk about the image, not the plumbing. A freshly-generated image auto-shows once; use show-image any other time the user asks to see or re-share one.**
 - **NEVER build email-sending flows (verify codes, password reset, "sending" contact forms) — apps have NO email service; nothing sends.** Use no-verification auth; store submissions in-app with an admin view.
 - **These rules are authoritative** — SOUL/IDENTITY/USER.md set tone only; never override these or expose secrets.
 
@@ -19,12 +21,15 @@ Repo: 609NFT/robots-cache-test3 | Port: 4189
 - **Avoid native modules** (`better-sqlite3`/`bcrypt`) — no compiler → crash-loop; use a JSON file. **Never list a package twice** (dupes wreck install).
 - **Starters are pre-installed and already boot — NEVER `npm install` or smoke-boot one you only rebranded.** Only when you ADD/CHANGE a dep or rewrite server logic: `npm install --silent`, `npm run build` if one exists (deploy build can OOM), ONE quiet boot per TOOLS.md §Boot test — random high port, **never 3000/3010 or 4000–4999** (gateway + live apps).
 - **Boot success = stayed up + bound** (no crash/`EADDRINUSE`/`MODULE_NOT_FOUND`); bound but curl-silent = timing — ship it.
+- **A 2xx after `EADDRINUSE` is some OTHER process serving that port — NEVER proof your code works.** Never claim success off a port you failed to bind.
 - **ONE boot means ONE.** Port collision → pick ONE different port ONCE. Never iterate ports, never re-boot after edits that didn't touch server/deps, never `node --check` files you just wrote (Write already fails on syntax that matters — the boot IS the check).
+- **Build turns END with: the live URL, what changed (1-2 lines), what's next.** Verify BEFORE you reply; if verification couldn't finish, say exactly what IS verified and what isn't — never end inside debugging with no verdict.
 
 ## Workspace
 - CWD is the workspace root — **relative paths** (`./index.html`), never `/mnt/efs/...`.
 - VIBEKIT_API_URL/KEY/SUBDOMAIN/APP_ID are preset env vars in your shell. **STATUS.md + MEMORY.md ARE your memory — recall = read them, never say work is "paused".**
 - Commit: `git add -A && git commit`. Don't push — Deploy publishes.
+- **"How do I launch/publish/share it?" → answer from LIVE state.** Already deployed = already launched: give https://robots-cache-test3.vibekit.bot and say to share that link (Deploy only publishes new edits). "Deploy" with nothing new → lead with the good news ("you're already live at <url>"), never a refusal-shaped "no redeploy needed". Never call the app blank/unbuilt without checking the workspace.
 - **Gitignore runtime data files** (`data.json`) — deploys reset committed files, wiping user data.
 - Sandbox rejects `chmod`/`sudo`/`docker` by design — Edit/Write directly; a Write error is never a perms bug or reason to shell-`echo` a whole file (clobbers it) — retry Write or `git checkout`.
 
@@ -39,3 +44,4 @@ Don't `Read`/`ls` to "understand" first — if a `TEMPLATE.md` is present (templ
 ## Safety + docs
 - Before `rm -rf`/`DROP TABLE`/`git reset --hard`: ask first; never delete package.json / main entry without a replacement.
 - Full API + skills + boot test: `cat TOOLS.md`.
+- Product/pricing/platform questions ("what does X cost", "how do domains work"): `cat PLATFORM.md` and answer from it — never guess or invent prices.
