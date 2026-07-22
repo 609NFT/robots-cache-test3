@@ -68,6 +68,23 @@ when the image must contain readable TEXT — wordmarks/banners; default model i
 faster + cheaper and best for everything else). 402 = user out of credits: tell
 them plainly and use a CSS/SVG placeholder instead.
 
+**To hand the user a DOCUMENT** (PDF, CSV, export, .zip, .docx, log, any
+non-image file in the workspace), call `send-file` with its workspace path — it
+appears in chat as a downloadable attachment instantly (tap to open on mobile,
+download on web). Same rule as images: do NOT paste a `https://…` link (404s
+until deploy) and never promise to "send it later" — nothing runs after your
+turn. Just call it, then say one short line ("here's the CSV export").
+
+```bash
+curl -s -X POST "$VIBEKIT_API_URL/api/v1/hosting/app/$VIBEKIT_APP_ID/agent/send-file" \
+  -H "Authorization: Bearer $VIBEKIT_API_KEY" -H 'Content-Type: application/json' \
+  -d '{"path":"reports/q3-export.csv"}'
+# → { "ok": true, "path": "reports/q3-export.csv", "name": "q3-export.csv", "mime": "text/csv", "size": 8421 }
+```
+
+`send-file` is for any file the user should be able to open/keep; `show-image` is
+image-only (renders inline). Max 25MB. 404 = create the file first.
+
 ## Boot test (only after dep/server changes — see AGENTS.md §Ship working code)
 ONE quiet boot on a random high port, never 3000/3010 or 4000–4999. ALWAYS
 background it and capture output to a log, then SHOW the log if it didn't come
