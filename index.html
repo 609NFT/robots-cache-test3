@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>IRON LEGION — Robot Command</title>
-<link rel="icon" href="/images/iron-legion-mark.svg" sizes="any" type="image/svg+xml">
+<link rel="icon" href="/images/app-logo.png?v=robot-logo-20260722" type="image/png">
 <style>
 :root{
   --bg:#07070c; --bg2:#0d0d16; --card:#12121c; --card2:#181824; --border:#26263a;
@@ -108,6 +108,40 @@ body{
 .hpbar i{display:block;height:100%;background:linear-gradient(90deg,#ff4d5e,#ff8a5e);transition:width .35s ease}
 .hpbar.good i{background:linear-gradient(90deg,#3ecf6e,#00e5c7)}
 .vs{display:flex;align-items:center;justify-content:center;font-weight:900;color:var(--mute);font-size:13px}
+.fight-ring{position:relative;margin:0 14px 10px;min-height:220px;border:1px solid #3a3a52;border-radius:8px;overflow:hidden;background:radial-gradient(ellipse at center,#232336 0%,#11111b 62%,#08080d 100%);box-shadow:inset 0 0 60px rgba(0,0,0,.75)}
+.fight-ring:before{content:"";position:absolute;left:7%;right:7%;bottom:24px;height:52px;border:4px solid #4f4f69;border-radius:50%;transform:perspective(380px) rotateX(62deg);box-shadow:0 0 0 999px rgba(0,0,0,.08),0 0 34px rgba(124,92,255,.24)}
+.fight-ring:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(124,92,255,.16),transparent 32%,transparent 68%,rgba(255,77,94,.15)),repeating-linear-gradient(0deg,transparent 0 17px,rgba(255,255,255,.035) 18px);pointer-events:none}
+.ring-rope{position:absolute;left:8%;right:8%;height:2px;background:linear-gradient(90deg,#7c5cff,#f2f2f7,#ff4d5e);opacity:.45;box-shadow:0 0 10px rgba(255,255,255,.28)}
+.ring-rope.r1{top:22%}.ring-rope.r2{top:34%}.ring-rope.r3{top:46%}
+.corner{position:absolute;top:18%;bottom:26%;width:7px;border-radius:5px;background:#dedee8;box-shadow:0 0 12px rgba(255,255,255,.4)}
+.corner.left{left:8%}.corner.right{right:8%}
+.arena-bot{position:absolute;bottom:48px;width:82px;height:118px;z-index:2;filter:drop-shadow(0 12px 12px rgba(0,0,0,.65));transition:transform .28s cubic-bezier(.2,.9,.2,1)}
+.arena-bot.player{left:20%;--metal:#6f7f94;--glow:#00e5c7;transform:translateX(0) rotate(-2deg)}
+.arena-bot.enemy{right:20%;--metal:#833d46;--glow:#ff4d5e;transform:translateX(0) rotate(2deg) scaleX(-1)}
+.arena-bot .head{position:absolute;left:24px;top:0;width:34px;height:28px;border-radius:6px;background:linear-gradient(145deg,#d8dbe2,var(--metal));border:2px solid #101018}
+.arena-bot .visor{position:absolute;left:6px;right:6px;top:10px;height:6px;border-radius:4px;background:var(--glow);box-shadow:0 0 12px var(--glow)}
+.arena-bot .body{position:absolute;left:16px;top:32px;width:50px;height:48px;border-radius:8px;background:linear-gradient(145deg,#dfe2e7,var(--metal) 54%,#22232c);border:2px solid #101018}
+.arena-bot .core{position:absolute;left:18px;top:14px;width:14px;height:14px;border-radius:50%;background:var(--glow);box-shadow:0 0 16px var(--glow)}
+.arena-bot .arm{position:absolute;top:40px;width:17px;height:52px;border-radius:9px;background:linear-gradient(#bfc3cb,var(--metal));border:2px solid #101018;transform-origin:50% 8px}
+.arena-bot .arm.left{left:2px;transform:rotate(22deg)}.arena-bot .arm.right{right:2px;transform:rotate(-42deg)}
+.arena-bot .fist{position:absolute;left:-4px;bottom:-5px;width:23px;height:18px;border-radius:7px;background:var(--glow);box-shadow:0 0 12px var(--glow)}
+.arena-bot .leg{position:absolute;top:78px;width:18px;height:40px;border-radius:9px;background:#343541;border:2px solid #101018}.arena-bot .leg.left{left:20px}.arena-bot .leg.right{right:20px}
+.arena-bot.strike{animation:bot-strike .42s ease}
+.arena-bot.strike .arm.right{animation:punch .42s ease}
+.arena-bot.hit{animation:bot-hit .35s ease}
+.arena-bot.enemy.strike{animation:enemy-strike .42s ease}
+.arena-bot.enemy.hit{animation:enemy-hit .35s ease}
+.arena-bot.defend .body{box-shadow:0 0 0 7px rgba(62,168,255,.22),0 0 24px rgba(62,168,255,.65)}
+.arena-bot.ability .core,.arena-bot.ability .visor{animation:ability-pulse .75s ease}
+.hit-spark{position:absolute;left:50%;top:44%;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 0 12px #fff,0 0 28px var(--legendary),0 0 44px var(--danger);opacity:0;transform:translate(-50%,-50%) scale(.2);z-index:4}
+.hit-spark.show{animation:spark .36s ease}
+@keyframes bot-strike{50%{transform:translateX(92px) rotate(5deg)}}
+@keyframes bot-hit{30%{transform:translateX(24px) rotate(9deg)}60%{transform:translateX(-13px) rotate(-6deg)}}
+@keyframes enemy-strike{50%{transform:translateX(-92px) rotate(-5deg) scaleX(-1)}}
+@keyframes enemy-hit{30%{transform:translateX(-24px) rotate(-9deg) scaleX(-1)}60%{transform:translateX(13px) rotate(6deg) scaleX(-1)}}
+@keyframes punch{50%{transform:rotate(-86deg) translateY(-10px)}}
+@keyframes ability-pulse{50%{filter:brightness(2.8);box-shadow:0 0 26px var(--glow),0 0 52px var(--glow)}}
+@keyframes spark{30%{opacity:1;transform:translate(-50%,-50%) scale(2.2)}100%{opacity:0;transform:translate(-50%,-50%) scale(3.5)}}
 .log{flex:1;overflow-y:auto;padding:0 14px;font-size:12.5px;color:var(--mute);display:flex;flex-direction:column-reverse;gap:4px}
 .log .me{color:var(--accent2)}
 .log .en{color:var(--hp)}
@@ -140,7 +174,7 @@ body{
 <div id="app">
   <div id="topbar">
     <span class="brand">
-      <img class="brand-mark" src="/images/app-logo.png?v=c24d2c7" width="30" height="30" alt="Iron Legion" decoding="async"/>
+      <img class="brand-mark" src="/images/app-logo.png?v=robot-logo-20260722" width="30" height="30" alt="Iron Legion" decoding="async"/>
       <span class="brand-text">IRON LEGION</span>
     </span>
     <div class="spacer"></div>
@@ -200,6 +234,30 @@ body{
           <div class="fclass" id="eClass">—</div>
           <div class="hpbar"><i id="eHpBar" style="width:100%"></i></div>
         </div>
+      </div>
+      <div class="fight-ring" aria-label="Robot fight ring">
+        <div class="ring-rope r1"></div>
+        <div class="ring-rope r2"></div>
+        <div class="ring-rope r3"></div>
+        <div class="corner left"></div>
+        <div class="corner right"></div>
+        <div class="arena-bot player" id="arenaPlayer">
+          <div class="head"><span class="visor"></span></div>
+          <div class="body"><span class="core"></span></div>
+          <div class="arm left"><span class="fist"></span></div>
+          <div class="arm right"><span class="fist"></span></div>
+          <div class="leg left"></div>
+          <div class="leg right"></div>
+        </div>
+        <div class="arena-bot enemy" id="arenaEnemy">
+          <div class="head"><span class="visor"></span></div>
+          <div class="body"><span class="core"></span></div>
+          <div class="arm left"><span class="fist"></span></div>
+          <div class="arm right"><span class="fist"></span></div>
+          <div class="leg left"></div>
+          <div class="leg right"></div>
+        </div>
+        <div class="hit-spark" id="hitSpark"></div>
       </div>
       <div class="log" id="battleLog"></div>
       <div class="actions">
@@ -841,6 +899,38 @@ document.getElementById('weaponList').addEventListener('click', e=>{
 
 /* ============ BATTLE SYSTEM ============ */
 let battle = null;
+const arenaPlayer = document.getElementById('arenaPlayer');
+const arenaEnemy = document.getElementById('arenaEnemy');
+const hitSpark = document.getElementById('hitSpark');
+
+function setArenaBot(botEl, robot){
+  const color = '#'+robot.color.toString(16).padStart(6,'0');
+  botEl.style.setProperty('--metal', color);
+  botEl.style.setProperty('--glow', RARITY[robot.rarity].color);
+  botEl.title = robot.name;
+}
+
+function pulseArena(who, action){
+  const actor = who === 'player' ? arenaPlayer : arenaEnemy;
+  const target = who === 'player' ? arenaEnemy : arenaPlayer;
+  actor.classList.remove('strike','ability','defend');
+  target.classList.remove('hit');
+  void actor.offsetWidth;
+  if(action === 'strike'){
+    actor.classList.add('strike');
+    target.classList.add('hit');
+    hitSpark.classList.remove('show');
+    void hitSpark.offsetWidth;
+    hitSpark.classList.add('show');
+  } else {
+    actor.classList.add(action);
+  }
+  setTimeout(()=>{
+    actor.classList.remove('strike','ability','defend');
+    target.classList.remove('hit');
+    hitSpark.classList.remove('show');
+  }, action === 'defend' ? 720 : 460);
+}
 
 function makeEnemy(){
   const ownedList = ownedRobots();
@@ -883,6 +973,8 @@ function prepBattle(){
   document.getElementById('eName').textContent = enemy.def.name;
   document.getElementById('eClass').textContent = CLASSES[enemy.def.class].label+' · '+RARITY[enemy.def.rarity].label;
   document.getElementById('eFighter').style.borderColor = RARITY[enemy.def.rarity].color+'66';
+  setArenaBot(arenaPlayer, r);
+  setArenaBot(arenaEnemy, enemy.def);
   document.getElementById('abilityLbl').textContent = battle.p.ability.name;
   document.getElementById('battleLog').innerHTML = '';
   logMsg(`Battle start: ${r.name} vs ${enemy.def.name}!`, 'sys');
@@ -936,6 +1028,7 @@ function enemyTurn(){
     const {dmg,isCrit} = computeDamage(e,p);
     p.hp = Math.max(0, p.hp-dmg);
     logMsg(`${e.robot.name} attacks for ${dmg}${isCrit?' (CRIT!)':''}`, 'en');
+    pulseArena('enemy','strike');
   }
   if(e.cd>0) e.cd--;
   e.shield = Math.max(0, e.shield-1);
@@ -945,6 +1038,7 @@ function enemyTurn(){
 function applyAbility(user, target, isPlayer){
   const ab = user.ability;
   const name = user.robot.name;
+  pulseArena(isPlayer ? 'player' : 'enemy', ab.id === 'focus' || ab.id === 'siphon' ? 'strike' : 'ability');
   switch(ab.id){
     case 'overcharge': user.buffAtk = 2; logMsg(`${name} uses Overcharge — attack surges!`, isPlayer?'me':'en'); break;
     case 'aegis': user.shield = 1; logMsg(`${name} raises Aegis Shield!`, isPlayer?'me':'en'); break;
@@ -1012,6 +1106,7 @@ document.getElementById('actAttack').addEventListener('click', ()=>{
   e.hp = Math.max(0, e.hp-dmg);
   logMsg(`${p.robot.name} attacks for ${dmg}${isCrit?' (CRIT!)':''}`, 'me');
   flashHit();
+  pulseArena('player','strike');
   p.shield = Math.max(0,p.shield-1);
   p.buffAtk = Math.max(0,p.buffAtk-1);
   if(p.cd>0) p.cd--;
@@ -1032,6 +1127,7 @@ document.getElementById('actDefend').addEventListener('click', ()=>{
   if(!battle || battle.over) return;
   battle.p.shield = 2;
   logMsg(`${battle.p.robot.name} braces defensively.`, 'me');
+  pulseArena('player','defend');
   if(battle.p.cd>0) battle.p.cd--;
   updateHpBars();
   setTimeout(()=>{ enemyTurn(); updateHpBars(); endCheck(); }, 450);
